@@ -1,0 +1,20 @@
+sudo: false
+language: java
+jdk: oraclejdk8
+addons:
+ sonarcloud:
+     organization: "pinka117-github"
+     token:
+       secure: "PPjInRjUGkfvQV3i5XzAL/oNNOEPP9WrigiLoS8NXWJWA1uGFTPH6ticyY7tTGpMtMauhh4xfij5doimkrReP4k6HWVDIlTAp5V+TCDmrAliNNSKFu+3QD0VjmmcqYoFvInitBVX9jnKumf9yV2UtQSjW2SOQI/jTeD/DjMfRxVGgrSCN9hakIxaVW9JyOFcOWOK5Tk9wf6g37kb2kTnfejXlgxcrLJOnLMiUeccSh7Vw9rYPX//PCUYNqeQOdvH9IW1NpdNjQscAFxAPNMQKUz8ElZkSTbnfc40lToPOqIV3TNRc1P61cQe1srYKoeRdLpCSDLyv7kBbBfH8X3oyoBrPa5f0v38PrqgiW6I0ZF1gTdBlLQOQv/MqyDNOFzQr1M7K2wPQxr9kf6DaQD3wxp0Ovcj9Wsj7DTrWTBQP5h3dL9rBB/K3NihOY+2B0yHOOXGfmeUVQKMFMimc3x2qvV+SqCiuieuboeTMXVOJhDLXmFHtrP769UvtpeqF7JHvUvjnHej0BIYG7Y0upWIbMUNIfsn6MaUAXn2Rvv08K7Yo2XcdEs1S6wgfttiD1KVBZqAQCeZTXG7h2oBaWyCwC1j8i8K4Y4AFhelaOjyBiDZqpZqnQX76GdCy9A8pnKh0SCjHsWQDgK8Uvr/QNgAt4LLa3+OIKl+nQdlRzNY6/4="
+env:
+- DISPLAY=:99.0
+cache:
+directories:
+- $HOME/.m2
+install: true
+before_script:
+- sh -e /etc/init.d/xvfb start
+script:
+- export
+- mvn jacoco:prepare-agent test jacoco:prepare-agent-integration verify jacoco:report jacoco:report-integration sonar:sonar coveralls:report
+- mvn verify -Pit-tomcat
