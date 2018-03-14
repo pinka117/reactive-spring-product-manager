@@ -3,5 +3,5 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/bdd/resources")
-public class LoginControllerCucumberBDD {
+public class CucumberBDD {
 }
