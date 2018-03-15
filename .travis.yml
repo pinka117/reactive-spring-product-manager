@@ -17,4 +17,3 @@ before_script:
 script:
 - export
 - mvn jacoco:prepare-agent test jacoco:prepare-agent-integration verify jacoco:report jacoco:report-integration sonar:sonar coveralls:report
-- mvn verify -Pit-tomcat
