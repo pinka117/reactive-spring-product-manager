@@ -39,6 +39,8 @@ public class LoginSteps implements En {
     private AbstractPage redirectedPage;
     private AbstractPage currentPage;
     private AdminHomePage adminHomePage;
+    private boolean loggedIn = false;
+
 
     public LoginSteps() {
         Given("^The user is on Home Page$", () -> {
@@ -50,6 +52,7 @@ public class LoginSteps implements En {
         });
         And("^The user insert a valid admin username and password$", () -> {
             validLogin();
+            loggedIn = true;
 
         });
         Then("^The user is redirected to Home Page$", () -> {
@@ -73,6 +76,7 @@ public class LoginSteps implements En {
             gotoLoginPage();
             validLogin();
             pressLogin();
+            loggedIn = true;
         });
         Then("^The correct username is displayed$", () -> {
             assertThat(currentPage.getBody()).contains("admin");
@@ -81,6 +85,7 @@ public class LoginSteps implements En {
             adminHomePage = AdminHomePage.to(webDriver);
             redirectedPage = adminHomePage.pressLogout(HomePage.class);
             this.currentPage = redirectedPage;
+            loggedIn = false;
         });
         Given("^The user isn't logged in$", () -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -111,6 +116,7 @@ public class LoginSteps implements En {
     private void pressLogin() {
         redirectedPage = loginPage.pressLogin(HomePage.class);
         this.currentPage = redirectedPage;
+
     }
 
     private void validLogin() {
@@ -119,9 +125,12 @@ public class LoginSteps implements En {
 
     @After
     public void tearDown() {
-        adminHomePage = AdminHomePage.to(webDriver);
-        this.currentPage = adminHomePage;
-        adminHomePage.pressLogout(AdminHomePage.class);
+        if (loggedIn == true) {
+            adminHomePage = AdminHomePage.to(webDriver);
+            this.currentPage = adminHomePage;
+            adminHomePage.pressLogout(AdminHomePage.class);
+            loggedIn = false;
+        }
     }
 
     @Before
