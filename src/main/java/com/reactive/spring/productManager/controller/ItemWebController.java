@@ -1,18 +1,39 @@
 package com.reactive.spring.productManager.controller;
 
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ItemWebController {
-    @GetMapping("/")
+    @RequestMapping("/")
     public String index() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return "/admin/index";
+
+        }
         return "/user/index";
     }
 
-    @GetMapping("/admin")
-    public String index2() {
-        return "/admin/index";
+    @RequestMapping(value = "/login")
+    public String login() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return "alreadyLoggedIn";
+        }
+
+        return "login";
     }
+
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
+
 }

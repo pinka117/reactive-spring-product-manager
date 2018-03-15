@@ -4,18 +4,21 @@ Feature: Login
     Given The user is on Home Page
     When The user navigates to "login" page
     And The user insert a valid admin username and password
-    Then A message "Logged in" must be shown
+    And Presses Log in
+    Then The user is redirected to Home Page
 
   Scenario: Login non present username
     Given The user is on Home Page
     When The user navigates to "login" page
     And The user insert a non present username and a password
+    And Presses Log in
     Then A message "Non valid username or password" must be shown
 
   Scenario: Login wrong password
     Given The user is on Home Page
     When The user navigates to "login" page
     And The user insert a valid username and a wrong password
+    And Presses Log in
     Then A message "Non valid username or password" must be shown
 
   Scenario: Username on Home Page
@@ -31,12 +34,12 @@ Feature: Login
   Scenario: Disconnect user
     Given The user logged in as an admin
     And The user is on Home Page
-    When Presses "Diconnect"
-    Then The user is disconnected
+    When Presses "Logout"
+    Then The user isn't logged in
 
   Scenario: Labels for non logged in user
     Given The user isn't logged in
     When The user is on Home Page
-    Then There is a label "Login"
-    And There isn't a label "Disconnect"
-
+    Then  There isn't a button "Logout"
+    Then Presses a link "Login"
+    And Presses link "Back to Home Page"

@@ -28,4 +28,6 @@ public class AbstractPage {
     public String getBody() {
         return body.getText();
     }
+
+
 }

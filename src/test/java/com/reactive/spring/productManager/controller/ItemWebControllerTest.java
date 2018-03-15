@@ -29,8 +29,8 @@ public class ItemWebControllerTest {
 
     @Test
     @WithAnonymousUser
-    public void testHomeAdmin() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/admin"))
-                .andExpect(status().is(401));
+    public void testLoginPage() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/login"))
+                .andExpect(status().isOk());
     }
 }
