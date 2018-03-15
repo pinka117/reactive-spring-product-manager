@@ -23,6 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<cucumber.version>1.2.5</cucumber.version>
+        <skip.unit-tests>false</skip.unit-tests>
+        <skip.integration-tests>false</skip.integration-tests>
         <sonar.junit.reportPaths>
             ${project.build.directory}/surefire-reports,
             ${project.build.directory}/failsafe-reports
@@ -38,6 +40,7 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
@@ -46,6 +49,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -78,7 +85,7 @@
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java</artifactId>
+            <artifactId>cucumber-java8</artifactId>
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -88,6 +95,39 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -99,6 +139,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*Application.*</exclude>
+                        <exclude>**/model/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -123,9 +164,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19.1</version>
 				<executions>
 					<execution>
+                        <configuration>
+                            <skipTests>${skip.integration-tests}</skipTests>
+                            <includes>
+                                <include>**/*ApplicationTests.java</include>
+                                <include>**/*IT.java</include>
+                            </includes>
+                        </configuration>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>
@@ -134,6 +181,7 @@
 					<execution>
 						<id>bdd-tests</id>
 						<configuration>
+                            <skipTests>${skip.integration-tests}</skipTests>
 							<includes>
 								<include>**/*BDD.java</include>
 							</includes>
@@ -145,39 +193,39 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-test-source</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/test/it/java</source>
-								<source>src/test/bdd/java</source>
-							</sources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>add-test-resource</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>add-test-resource</goal>
-						</goals>
-						<configuration>
-							<resources>
-								<resource>
-									<directory>src/bdd/resources</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/it/java</source>
+                                <source>src/bdd/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/bdd/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
