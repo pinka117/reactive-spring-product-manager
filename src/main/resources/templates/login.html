@@ -3,20 +3,27 @@
 <head>
     <title>Login page</title>
     <meta charset="utf-8"/>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/signin.css" th:href="@{/css/signin.css}"/>
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 </head>
 <body>
-<h1>Login page</h1>
-<p>Example user: admin / password</p>
-<p th:if="${loginError}" class="error">Non valid username or password</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password"/> <br/>
-    <input type="submit" name="Log in" value="Log in"/>
-</form>
-<p><a href="/index" id="home page" th:href="@{/}">Back to home page</a></p>
+<div class="container">
+    <form class="form-signin" th:action="@{/login}" method="post">
+        <h2 class="form-signin-heading">Login</h2>
+
+        <p th:if="${loginError}" class="error">Non valid username or password</p>
+        <label for="username" class="sr-only">Username</label>
+        <input type="username" id="username" class="form-control" name="username" placeholder="Username" required
+               autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required> <br/>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" name="Log in" value="Log in"/>
+
+        <p><a href="/index" id="home page" th:href="@{/}">Back to home page</a></p>
+    </form>
+</div>
 </body>
 </html>
