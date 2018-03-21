@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Items</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 </head>
 <body>
-<a href="/index" id="login" th:href="@{/login}">Login</a></p>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">Product Manager</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <form class="navbar-form navbar-right" action="/login">
+                <button class="btn btn-default" type="submit" id="login" value="login">Login
+                </button>
+            </form>
+        </ul>
+    </div>
+</nav>
+
 </body>
 </html>

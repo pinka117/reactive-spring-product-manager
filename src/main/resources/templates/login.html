@@ -13,7 +13,6 @@
 <div class="container">
     <form class="form-signin" th:action="@{/login}" method="post">
         <h2 class="form-signin-heading">Login</h2>
-
         <p th:if="${loginError}" class="error">Non valid username or password</p>
         <label for="username" class="sr-only">Username</label>
         <input type="username" id="username" class="form-control" name="username" placeholder="Username" required
@@ -21,7 +20,6 @@
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" class="form-control" name="password" placeholder="Password" required> <br/>
         <input class="btn btn-lg btn-primary btn-block" type="submit" name="Log in" value="Log in"/>
-
         <p><a href="/index" id="home page" th:href="@{/}">Back to home page</a></p>
     </form>
 </div>

@@ -4,17 +4,30 @@
 <head>
     <title>Items</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
+
 </head>
 <body>
-<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-    User: <span sec:authentication="name">[[${#httpServletRequest.remoteUser}]]</span>
-    <div>
-        <form action="#" th:action="@{/logout}" method="post">
-            <input type="submit" id="Logout" value="Logout"/>
-        </form>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">Product Manager</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+
+            <form class="navbar-form navbar-right" action="#" th:action="@{/logout}" method="post">
+                <div th:fragment="logout" sec:authorize="isAuthenticated()">
+                    <span class="glyphicon glyphicon-user"></span> 
+                    <strong sec:authentication="name"> [[${#httpServletRequest.remoteUser}]]</strong>
+                    <button class="btn btn-default" type="submit" id="Logout" value="Logout">Logout
+                    </button>
+                </div>
+            </form>
+        </ul>
     </div>
-</div>
+</nav>
+
 </body>
 </html>
