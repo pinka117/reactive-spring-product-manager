@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.controller;
+package com.reactive.spring.product.manager.controller;
 
 
 import org.junit.Test;
@@ -33,4 +33,6 @@ public class ItemWebControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(status().isOk());
     }
+
+
 }

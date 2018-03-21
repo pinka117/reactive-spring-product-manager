@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.service;
+package com.reactive.spring.product.manager.service;
 
 import org.springframework.stereotype.Service;
 

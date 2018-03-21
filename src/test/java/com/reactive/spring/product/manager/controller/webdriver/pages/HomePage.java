@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.controller.webdriver.pages;
+package com.reactive.spring.product.manager.controller.webdriver.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,6 @@ public class HomePage extends AbstractPage {
 
     @FindBy(id = "login")
     private WebElement loginLink;
-
 
 
     public HomePage(WebDriver driver) {

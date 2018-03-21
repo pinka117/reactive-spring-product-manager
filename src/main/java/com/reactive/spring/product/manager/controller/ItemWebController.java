@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.controller;
+package com.reactive.spring.product.manager.controller;
 
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

@@ -36,6 +36,7 @@
         </sonar.sources>
         <sonar.coverage.exclusions>
             **/*Application.*,
+            **/model/**,
         </sonar.coverage.exclusions>
 	</properties>
 

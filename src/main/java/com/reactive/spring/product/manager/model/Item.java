@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.model;
+package com.reactive.spring.product.manager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

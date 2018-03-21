@@ -1,4 +1,4 @@
-package com.reactive.spring.productManager.config;
+package com.reactive.spring.product.manager.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
