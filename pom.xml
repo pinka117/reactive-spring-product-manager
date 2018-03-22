@@ -37,6 +37,7 @@
         <sonar.coverage.exclusions>
             **/*Application.*,
             **/model/**,
+            **/config/**,
         </sonar.coverage.exclusions>
 	</properties>
 
@@ -139,7 +140,19 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.7-1</version>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>1.50.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cz.jirutka.spring</groupId>
+            <artifactId>embedmongo-spring</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
         <pluginManagement><plugins>
@@ -151,6 +164,7 @@
                     <excludes>
                         <exclude>**/*Application.*</exclude>
                         <exclude>**/model/*</exclude>
+                        <exclude>**/config/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ItemWebController {
+
     @RequestMapping("/")
     public String index() {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return "/admin/index";
@@ -32,6 +34,7 @@ public class ItemWebController {
 
     @RequestMapping("/login-error")
     public String loginError(Model model) {
+
         model.addAttribute("loginError", true);
         return "login";
     }

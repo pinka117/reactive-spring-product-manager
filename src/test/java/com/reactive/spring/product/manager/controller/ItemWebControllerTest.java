@@ -34,5 +34,11 @@ public class ItemWebControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @WithAnonymousUser
+    public void testAdminPageAnonymous() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/admin/index"))
+                .andExpect(status().is3xxRedirection());
+    }
 
 }
