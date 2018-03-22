@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class MyUserDetails implements UserDetails {
-    private User user;
+    private transient User user;
     private List<GrantedAuthority> grantedAuthorities;
 
     public MyUserDetails(User user) {

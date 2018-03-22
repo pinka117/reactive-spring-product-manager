@@ -19,7 +19,7 @@ public class User {
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
     private String password;
-    private LinkedList<String> roles = new LinkedList<String>();
+    private LinkedList<String> roles = new LinkedList<>();
 
     public void addRole(String role) {
         roles.add(role);

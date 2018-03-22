@@ -12,9 +12,8 @@ public class ProductManagerApplication {
 
     @Bean
     public ApplicationRunner initialize(final MongoTemplate mongoTemplate) {
-        return args -> {
-            Data.initializeAllData(mongoTemplate);
-        };
+        return args ->
+                Data.initializeAllData(mongoTemplate);
     }
 
     public static void main(String[] args) {

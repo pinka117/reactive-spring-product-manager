@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 
 
@@ -36,7 +34,7 @@ public class CustomUserDetailsServiceTest {
         UserDetails ud = cudService.loadUserByUsername("admin");
         assertEquals("admin", ud.getUsername());
         assertEquals("password", ud.getPassword());
-        assertThat(ud.getAuthorities().contains("ROLE_ADMIN"));
+        assertTrue(ud.getAuthorities().contains("ROLE_ADMIN"));
 
     }
 
