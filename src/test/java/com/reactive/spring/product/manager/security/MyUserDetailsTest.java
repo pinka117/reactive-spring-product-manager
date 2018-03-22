@@ -3,8 +3,7 @@ package com.reactive.spring.product.manager.security;
 import com.reactive.spring.product.manager.model.User;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MyUserDetailsTest {
 
@@ -22,6 +21,6 @@ public class MyUserDetailsTest {
         assertTrue(ud.isAccountNonLocked());
         assertTrue(ud.isEnabled());
         assertTrue(ud.isCredentialsNonExpired());
-        assertTrue(ud.getAuthorities().contains("admin"));
+        assertFalse(ud.getAuthorities().isEmpty());
     }
 }
