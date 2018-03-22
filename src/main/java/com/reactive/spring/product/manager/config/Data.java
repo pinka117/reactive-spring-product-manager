@@ -1,4 +1,4 @@
-package com.reactive.spring.product.manager;
+package com.reactive.spring.product.manager.config;
 
 import com.reactive.spring.product.manager.model.User;
 import org.springframework.data.mongodb.core.MongoTemplate;

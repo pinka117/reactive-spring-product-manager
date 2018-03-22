@@ -1,5 +1,6 @@
 package com.reactive.spring.product.manager;
 
+import com.reactive.spring.product.manager.config.Data;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

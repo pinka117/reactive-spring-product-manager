@@ -37,6 +37,7 @@
         <sonar.coverage.exclusions>
             **/*Application.*,
             **/model/**,
+            **/config/**,
         </sonar.coverage.exclusions>
 	</properties>
 
@@ -163,6 +164,7 @@
                     <excludes>
                         <exclude>**/*Application.*</exclude>
                         <exclude>**/model/*</exclude>
+                        <exclude>**/config/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
