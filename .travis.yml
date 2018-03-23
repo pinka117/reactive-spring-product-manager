@@ -16,4 +16,4 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 script:
 - export
-- mvn jacoco:prepare-agent test jacoco:prepare-agent-integration verify jacoco:report jacoco:report-integration sonar:sonar coveralls:report
+- ./mvnw clean verify -Pjacoco coveralls:report sonar:sonar
