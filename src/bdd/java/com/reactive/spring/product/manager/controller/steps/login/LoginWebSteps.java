@@ -1,6 +1,7 @@
 package com.reactive.spring.product.manager.controller.steps.login;
 
 import com.reactive.spring.product.manager.controller.webdriver.pages.*;
+import com.reactive.spring.product.manager.model.User;
 import com.reactive.spring.product.manager.service.ItemService;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -14,8 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +28,8 @@ import static org.assertj.core.api.Assertions.fail;
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginWebSteps implements En {
-
+    @Autowired
+    private MongoTemplate mongoTemplate;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -140,6 +145,16 @@ public class LoginWebSteps implements En {
     @Before
     public void setup() {
         AbstractPage.port = port;
+        String ADMIN = "admin";
+        User user = new User();
+        user.setId(ADMIN);
+        user.setUsername(ADMIN);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode("password"));
+        user.addRole(ADMIN);
+        mongoTemplate.dropCollection(User.class);
+        mongoTemplate.createCollection(User.class);
+        mongoTemplate.insert(user);
     }
 
     @TestConfiguration
