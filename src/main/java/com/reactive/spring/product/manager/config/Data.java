@@ -20,7 +20,7 @@ public class Data {
         user.setId(ADMIN);
         user.setUsername(ADMIN);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode("admin"));
+        user.setPassword(passwordEncoder.encode(ADMIN));
         user.addRole(ADMIN);
         mongoTemplate.dropCollection(User.class);
         mongoTemplate.createCollection(User.class);
@@ -28,6 +28,8 @@ public class Data {
         mongoTemplate.dropCollection(Item.class);
         mongoTemplate.createCollection(Item.class);
         Item it = new Item("id1", "name1", "location1");
+        mongoTemplate.insert(it);
+        it = new Item("id2", "name2", "location2");
         mongoTemplate.insert(it);
 
 
