@@ -1,26 +1,52 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Items</title>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet"
           href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/favicon.ico"/>
+
+
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="">Product Manager</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+
             <form class="navbar-form navbar-right" action="/login">
-                <button class="btn btn-default" type="submit" id="login" value="login">Login
+                <button class="Login glyphicon glyphicon-log-in" type="submit" id="login" value="login"> Login
                 </button>
             </form>
         </ul>
     </div>
 </nav>
+<div class="table-responsive">
+    <table id="itemTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Location</th>
+        </thead>
+        <tbody>
 
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}"
+            </td>
+            <td th:text="${item.name}"
+            </td>
+            <td th:text="${item.location}"
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

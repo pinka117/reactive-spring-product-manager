@@ -7,15 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProductManagerApplication {
 
 
-    /*
-     //Delete db and and some default elements
+    /* //Delete db and and some default elements
      @Bean
      public ApplicationRunner initialize(final MongoTemplate mongoTemplate) {
          return args ->
                  Data.initializeAllData(mongoTemplate);
      }
- */
+*/
     public static void main(String[] args) {
         SpringApplication.run(ProductManagerApplication.class, args);
     }
+
 }

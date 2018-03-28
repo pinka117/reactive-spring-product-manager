@@ -23,4 +23,5 @@ public class AdminHomePage extends HomePage {
         this.disconnectButton.click();
         return PageFactory.initElements(driver, resultPage);
     }
+
 }

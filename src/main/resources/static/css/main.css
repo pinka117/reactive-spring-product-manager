@@ -8,6 +8,21 @@ p.error {
     color: red;
 }
 
-div.logout {
+button.Logout {
     float: right;
+    font-size: medium;
+    border: none;
+    background: none;
+}
+
+button.Login {
+    float: right;
+    padding: 10px;
+    font-size: medium;
+    border: none;
+    background: none;
+}
+
+form.User {
+    padding: 10px;
 }

@@ -29,11 +29,5 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
-    public Flux<Item> findBeforeTimestamp(Long timestamp) {
-        return itemRepository.findByTimestampLessThanEqualOrderByTimestampDesc(timestamp);
-    }
 
-    public Flux<Item> findAfterTimestamp(Long timestamp) {
-        return itemRepository.findByTimestampGreaterThan(timestamp);
-    }
 }
