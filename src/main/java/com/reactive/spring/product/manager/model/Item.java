@@ -13,6 +13,6 @@ public class Item {
     private String id;
     private String name;
     private String location;
-    private Long timestamp = null;
+
 
 }

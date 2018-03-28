@@ -7,12 +7,16 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends AbstractPage {
 
-    @FindBy(id = "item_table")
-    private WebElement itemTable;
+
 
     @FindBy(id = "login")
     private WebElement loginLink;
-
+    @FindBy(id = "Modify")
+    private WebElement modifyButton;
+    @FindBy(id = "Remove")
+    private WebElement removeButton;
+    @FindBy(id = "Add")
+    private WebElement addButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -24,13 +28,21 @@ public class HomePage extends AbstractPage {
     }
 
 
-    public String getItemTableAsString() {
-        return itemTable.getText();
-    }
-
     public <T> T pressLogin(Class<T> resultPage) {
         this.loginLink.click();
         return PageFactory.initElements(driver, resultPage);
+    }
+
+    public boolean modifyIsEnabled() {
+        return modifyButton.isEnabled();
+    }
+
+    public boolean removeIsEnabled() {
+        return removeButton.isEnabled();
+    }
+
+    public boolean addIsEnabled() {
+        return addButton.isEnabled();
     }
 
 }

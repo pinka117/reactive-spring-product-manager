@@ -4,30 +4,63 @@
 <head>
     <title>Items</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet"
           href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <meta charset="utf-8"/>
-
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="">Product Manager</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/new" id="Add">Add new item</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
 
-            <form class="navbar-form navbar-right" action="#" th:action="@{/logout}" method="post">
+            <form class="User navbar-form navbar-right" action="#" th:action="@{/logout}" method="post">
                 <div th:fragment="logout" sec:authorize="isAuthenticated()">
                     <span class="glyphicon glyphicon-user"></span> 
                     <strong sec:authentication="name"> [[${#httpServletRequest.remoteUser}]]</strong>
-                    <button class="btn btn-default" type="submit" id="Logout" value="Logout">Logout
+
+
+                    <button class="Logout glyphicon glyphicon-log-out" type="submit" id="Logout" value="Logout">Logout
                     </button>
                 </div>
             </form>
         </ul>
     </div>
 </nav>
+<div class="table-responsive">
+    <table id="itemTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Modify</th>
+            <th>Remove</th>
+        </thead>
+        <tbody>
 
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}"
+            </td>
+            <td th:text="${item.name}"
+            </td>
+            <td th:text="${item.location}"
+            </td>
+            <td>
+                <button type="button" class="glyphicon glyphicon-pencil" id="Modify"></button>
+            </td>
+            <td>
+                <button type="button" class="glyphicon glyphicon-trash" id="Remove"></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

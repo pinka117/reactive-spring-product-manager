@@ -1,5 +1,6 @@
 package com.reactive.spring.product.manager.config;
 
+import com.reactive.spring.product.manager.model.Item;
 import com.reactive.spring.product.manager.model.User;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,5 +25,12 @@ public class Data {
         mongoTemplate.dropCollection(User.class);
         mongoTemplate.createCollection(User.class);
         mongoTemplate.insert(user);
+        mongoTemplate.dropCollection(Item.class);
+        mongoTemplate.createCollection(Item.class);
+        Item it = new Item("id1", "name1", "location1");
+        mongoTemplate.insert(it);
+
+
+
     }
 }

@@ -36,7 +36,7 @@ public class ItemServiceTest {
 
     @Before
     public void setUp() {
-        item = new Item("id1", "name1", "location1", System.currentTimeMillis());
+        item = new Item("id1", "name1", "location1");
         LinkedList<Item> li = new LinkedList<>();
         li.add(item);
         this.fi = Flux.fromIterable(li);
@@ -61,44 +61,7 @@ public class ItemServiceTest {
         verify(itemRepository).save(item);
     }
 
-    @Test
-    public void findBeforeOkTest() {
-        addToSteam();
-        Long futureDate = System.currentTimeMillis() + 20L;
-        given(itemRepository.findByTimestampLessThanEqualOrderByTimestampDesc(futureDate)).
-                willReturn(fi);
-        assertEquals(fi, itemService.findBeforeTimestamp(futureDate));
-        verify(itemRepository).findByTimestampLessThanEqualOrderByTimestampDesc(futureDate);
-    }
 
-    @Test
-    public void findBeforeNotFoundTest() {
-
-        Long futureDate = System.currentTimeMillis() + 20L;
-        given(itemRepository.findByTimestampLessThanEqualOrderByTimestampDesc(futureDate)).
-                willReturn(null);
-        assertNull(itemService.findBeforeTimestamp(futureDate));
-        verify(itemRepository).findByTimestampLessThanEqualOrderByTimestampDesc(futureDate);
-    }
-
-    @Test
-    public void findAfterOkTest() {
-        addToSteam();
-        Long pastDate = 1L;
-        given(itemRepository.findByTimestampGreaterThan(pastDate)).
-                willReturn(fi);
-        assertEquals(fi, itemService.findAfterTimestamp(pastDate));
-        verify(itemRepository).findByTimestampGreaterThan(pastDate);
-    }
-
-    @Test
-    public void findAfterNotFoundTest() {
-        Long pastDate = 1L;
-        given(itemRepository.findByTimestampGreaterThan(pastDate)).
-                willReturn(null);
-        assertNull(itemService.findAfterTimestamp(pastDate));
-        verify(itemRepository).findByTimestampGreaterThan(pastDate);
-    }
 
     public void addToSteam() {
         itemService.add(item);
