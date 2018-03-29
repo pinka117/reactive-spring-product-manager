@@ -8,6 +8,7 @@ addons:
        secure: "i8dIwNC58muQ632qdk0MMOwHjLyHS3b4Rq1vPW1JavJbuex7U91hUdcB79jbzr94LSbzCNjZ4r0K58De4piN8kttARDR3rz+Wtupaq4ZR1UAhp2+cmNq52j4ee2C4yzHiElGfpdh6cwkrStNzMLMqQHMtKNRgD5UbzWm+oQdNkQX9t90qoke13ZEtPhXLuCZFl4gI0LWrlh+P94b6hvDgYdSZpHMX39SkBfCLrGPCBCm6ztqd8cjz7z7CpnawvTz3HUTX7FEZA0kNUjkXkd7lornjAR6WZiPKXYEryx8ZhEUTT44H8ej5WR04hXOLXzMiVm3AZxFMTFkj9kjkh2ZyDSbTWG72edQwaz77Gb2Rn2jBTJZTwiya3dCDkv/5aqUUs7zXx5D4/pMc5RmRKJA9ZHBJVY+9j7xs58bxU5dGAonk8bm5sMpctesp8uKxbfqjebMbO/gq8HkX5c9AX5BscWHom9u3T0EaYoGJ+LYiPJumz6ohabt/uTwAjMejiYcN1pFricYhoiIjm9Htio72fOV2ovDdyw0jVjIw794o5oMw7CcRyVQFRvZAYvui8uYUP21gpeYrLNuPDDPyF94CBi+JwokdlQVK7Cy7q6pco+jDjb4D8P5QzNg69rjpv/C+PmSR8O+aagcDCzZ2vkuuFs37XTGWkMUTUYTFl9udLo="
 env:
 - DISPLAY=:99.0
+services: mongodb
 cache:
 directories:
 - $HOME/.m2
@@ -17,3 +18,4 @@ before_script:
 script:
 - export
 - ./mvnw clean verify -Pjacoco coveralls:report sonar:sonar
+- ./mvnw verify -Pe2e-tests
