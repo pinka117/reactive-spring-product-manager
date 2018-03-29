@@ -17,4 +17,3 @@ before_script:
 script:
 - export
 - ./mvnw clean verify -Pjacoco coveralls:report sonar:sonar
-- ./mvnw -q verify -Pe2e-tests
