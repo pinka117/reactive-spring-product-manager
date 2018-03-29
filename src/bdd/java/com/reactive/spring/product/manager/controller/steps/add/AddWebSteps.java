@@ -64,7 +64,6 @@ public class AddWebSteps implements En {
         });
         And("^A table must show an item with name \"([^\"]*)\", location \"([^\"]*)\" and id is positive$", (String name, String location) -> {
             homePage = HomePage.to(webDriver);
-            System.out.println(homePage.getBody());
             assertTrue(homePage.getBody().contains(name));
             assertTrue(homePage.getBody().contains(location));
 
