@@ -3,7 +3,7 @@ Feature: Add
   Scenario: Add ok
     Given The user is on Home Page
     And The user logged in as an admin
-    When The user navigates to "save" page
+    When The user navigates to "new" page
     And Enters item name "new item"
     And Enters location "new location"
     And Presses "Add"
@@ -13,7 +13,7 @@ Feature: Add
   Scenario: Add empty name
     Given The user is on Home Page
     And The user logged in as an admin
-    When The User navigates to "save" page
+    When The user navigates to "new" page
     And Enters location "new location"
     And Presses "Add"
     Then A message "Empty name" must be shown
@@ -21,7 +21,7 @@ Feature: Add
   Scenario: Add empty location
     Given The user is on Home Page
     And The user logged in as an admin
-    When The User navigates to "save" page
+    When The user navigates to "new" page
     And Enters item name "new item"
     And Presses "Add"
     Then A message "Empty location" must be shown

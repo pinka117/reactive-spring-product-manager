@@ -9,8 +9,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Controller
 public class ItemWebController {
@@ -49,5 +52,31 @@ public class ItemWebController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @GetMapping("/new")
+    public String newEmployee(Model model) {
+        Item item = new Item();
+        model.addAttribute("item", item);
+        model.addAttribute("message", "");
+        return "/admin/edit";
+    }
+
+    @PostMapping("/save")
+    public String saveItem(Item item, Model model) {
+        if (item.getName().equals("")) {
+            model.addAttribute("item", item);
+            model.addAttribute("message", "Empty name");
+            return "/admin/edit";
+        }
+        if (item.getLocation().equals("")) {
+            model.addAttribute("item", item);
+            model.addAttribute("message", "Empty location");
+            return "/admin/edit";
+        }
+        Mono<Item> it = itemService.add(item);
+        it.subscribe();
+        return "redirect:/";
+    }
+
 
 }

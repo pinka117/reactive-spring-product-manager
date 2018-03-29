@@ -21,7 +21,7 @@ public class Data {
         user.setUsername(ADMIN);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(ADMIN));
-        user.addRole(ADMIN);
+        user.addRole("ROLE_ADMIN");
         mongoTemplate.dropCollection(User.class);
         mongoTemplate.createCollection(User.class);
         mongoTemplate.insert(user);

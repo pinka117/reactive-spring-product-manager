@@ -8,15 +8,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -25,14 +25,15 @@ import static org.mockito.Mockito.verify;
 @ComponentScan(basePackages = "com.reactive.spring.product.manager")
 @ContextConfiguration(classes = ItemService.class)
 public class ItemServiceTest {
-    @MockBean
-    private MongoTemplate mongoTemplate;
+
     @MockBean
     private ItemRepository itemRepository;
     @Autowired
     private ItemService itemService;
     private Flux<Item> fi;
     private Item item;
+    private Mono<Item> empty;
+    private Item emptyId;
 
     @Before
     public void setUp() {
@@ -40,6 +41,10 @@ public class ItemServiceTest {
         LinkedList<Item> li = new LinkedList<>();
         li.add(item);
         this.fi = Flux.fromIterable(li);
+        this.empty = Mono.empty();
+        this.emptyId = new Item();
+        this.emptyId.setName("pippo");
+        this.emptyId.setLocation("pluto");
     }
 
     @Test
@@ -61,10 +66,36 @@ public class ItemServiceTest {
         verify(itemRepository).save(item);
     }
 
+    @Test
+    public void AddNoIdTestOk() {
+        given(itemRepository.findById(anyString())).
+                willReturn(empty);
+        addEmptyId();
+        assertFalse(emptyId.getId().equals(""));
+
+    }
+
+    @Test
+    public void AddNoIdTestFound() {
+        Mono<Item> monoItem = Mono.just(item);
+        given(itemRepository.findById(Integer.toString(1))).
+                willReturn(monoItem);
+        given(itemRepository.findById(Integer.toString(2))).
+                willReturn(empty);
+        addEmptyId();
+        assertTrue(emptyId.getId().equals("2"));
+
+    }
+
+    private void addEmptyId() {
+        itemService.add(emptyId);
+        verify(itemRepository).save(emptyId);
+    }
 
 
     public void addToSteam() {
         itemService.add(item);
     }
+
 
 }
