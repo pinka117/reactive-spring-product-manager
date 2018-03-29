@@ -10,36 +10,33 @@ import reactor.core.publisher.Mono;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
-
     private static int num = 1;
 
     @Autowired
     public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
-
     }
-
 
     public Flux<Item> findAll() {
         return itemRepository.findAll();
     }
 
-    private synchronized static void updateNum() {
+    private static synchronized void updateNum() {
         num++;
     }
 
     public Mono<Item> add(Item item) {
         if (item.getId().equals("")) {
-            while ((itemRepository.findById(Integer.toString(num)).block()) != null) {
-
+            while (getElement() != null) {
                 updateNum();
             }
-
             item.setId(Integer.toString(num));
         }
-
         return itemRepository.save(item);
     }
 
+    private Item getElement() {
+        return itemRepository.findById(Integer.toString(num)).block();
 
+    }
 }
