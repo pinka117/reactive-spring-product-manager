@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 @Controller
 public class ItemWebController {
+    public static final String MESSAGE = "message";
     @Autowired
     private ItemService itemService;
 
@@ -57,7 +58,7 @@ public class ItemWebController {
     public String newEmployee(Model model) {
         Item item = new Item();
         model.addAttribute("item", item);
-        model.addAttribute("message", "");
+        model.addAttribute(MESSAGE, "");
         return "/admin/edit";
     }
 
@@ -65,12 +66,12 @@ public class ItemWebController {
     public String saveItem(Item item, Model model) {
         if (item.getName().equals("")) {
             model.addAttribute("item", item);
-            model.addAttribute("message", "Empty name");
+            model.addAttribute(MESSAGE, "Empty name");
             return "/admin/edit";
         }
         if (item.getLocation().equals("")) {
             model.addAttribute("item", item);
-            model.addAttribute("message", "Empty location");
+            model.addAttribute(MESSAGE, "Empty location");
             return "/admin/edit";
         }
         Mono<Item> it = itemService.add(item);

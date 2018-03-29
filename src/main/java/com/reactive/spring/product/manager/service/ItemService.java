@@ -24,10 +24,15 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    private synchronized static void updateNum() {
+        num++;
+    }
+
     public Mono<Item> add(Item item) {
         if (item.getId().equals("")) {
-            while (itemRepository.findById(Integer.toString(num)).block() != null) {
-                num++;
+            while ((itemRepository.findById(Integer.toString(num)).block()) != null) {
+
+                updateNum();
             }
 
             item.setId(Integer.toString(num));
