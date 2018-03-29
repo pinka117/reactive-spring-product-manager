@@ -12,7 +12,7 @@ public class NewPage extends AbstractPage {
     @FindBy(id = "location")
     private WebElement location;
 
-    @FindBy(name = "Add")
+    @FindBy(id = "Add")
     private WebElement submit;
 
 
@@ -25,12 +25,14 @@ public class NewPage extends AbstractPage {
         return PageFactory.initElements(driver, NewPage.class);
     }
 
-    public void submitForm(String name, String location) {
+    public void submitFormName(String name) {
         this.name.clear();
         this.name.sendKeys(name);
+    }
+
+    public void submitFormLocation(String location) {
         this.location.clear();
         this.location.sendKeys(location);
-
     }
 
     public <T> T pressAdd(Class<T> resultPage) {

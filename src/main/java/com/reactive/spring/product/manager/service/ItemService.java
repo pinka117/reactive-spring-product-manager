@@ -13,6 +13,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
+    private static int num = 1;
 
     @Autowired
     public ItemService(ItemRepository itemRepository) {
@@ -26,6 +27,14 @@ public class ItemService {
     }
 
     public Mono<Item> add(Item item) {
+        if (item.getId().equals("")) {
+            while (itemRepository.findById(Integer.toString(num)).block() != null) {
+                num++;
+            }
+
+            item.setId(Integer.toString(num));
+        }
+
         return itemRepository.save(item);
     }
 

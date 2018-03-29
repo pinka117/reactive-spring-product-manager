@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -32,6 +33,14 @@ public class ItemWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testHomeAdmin() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
     @WithAnonymousUser
     public void testLoginPage() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/login"))
@@ -45,4 +54,19 @@ public class ItemWebControllerTest {
                 .andExpect(status().is3xxRedirection());
     }
 
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testNewPageAdmin() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/new"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @WithAnonymousUser
+    public void testNewPageAnonymous() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/new"))
+                .andExpect(status().is3xxRedirection());
+
+    }
 }

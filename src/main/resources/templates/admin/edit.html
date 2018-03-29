@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Items</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/css/edit.css" th:href="@{/css/edit.css}"/>
+</head>
+<body>
+
+<h1>Edit Item</h1>
+<div class="message" th:unless="${message.empty}">
+    <span th:text="${message}"></span>
+</div>
+
+<form name="item_form" action="#" th:action="@{/save}"
+      th:object="${item}" method="post">
+    <input type="hidden" id="id" th:field="*{id}"/>
+    <p>
+        Name: <input type="text" id="name" th:field="*{name}"/>
+    </p>
+    <p>
+        Location: <input type="text" id="location" th:field="*{location}"/>
+    </p>
+    <button type="submit" id="Add" name="btn_submit">Save</button>
+</form>
+
+</body>
+</html>
