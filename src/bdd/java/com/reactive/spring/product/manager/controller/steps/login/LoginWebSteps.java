@@ -1,85 +1,27 @@
 package com.reactive.spring.product.manager.controller.steps.login;
 
-import com.reactive.spring.product.manager.controller.webdriver.pages.*;
-import com.reactive.spring.product.manager.model.User;
-import com.reactive.spring.product.manager.service.ItemService;
+import com.reactive.spring.product.manager.controller.steps.CommonWebSteps;
+import com.reactive.spring.product.manager.controller.webdriver.pages.AdminHomePage;
+import com.reactive.spring.product.manager.controller.webdriver.pages.HomePage;
+import com.reactive.spring.product.manager.controller.webdriver.pages.LoginPage;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java8.En;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class LoginWebSteps implements En {
-    @Autowired
-    private MongoTemplate mongoTemplate;
-    @Autowired
-    private ItemService itemService;
-    @Autowired
-    private WebDriver webDriver;
-    @LocalServerPort
-    private int port;
-    private HomePage homePage;
-    private LoginPage loginPage;
-    private AbstractPage redirectedPage;
-    private AbstractPage currentPage;
-    private AdminHomePage adminHomePage;
-    private NewPage newPage;
-    private boolean loggedIn = false;
+public class LoginWebSteps extends CommonWebSteps {
 
 
     public LoginWebSteps() {
-        Given("^The user is on Home Page$", () -> {
-            homePage = HomePage.to(webDriver);
-            this.currentPage = homePage;
-        });
-        When("^The user navigates to \"login\" page$", () -> {
-            gotoLoginPage();
-        });
-        And("^The user insert a valid admin username and password$", () -> {
-            validLogin();
-            loggedIn = true;
-
-        });
-        Then("^The user is redirected to Home Page$", () -> {
-
-            assertThat(redirectedPage).isInstanceOf(HomePage.class);
-        });
-        And("^The user insert a non present username and a password$", () -> {
-            loginPage.submitForm("no", "no");
-
-        });
-        Then("^A message \"([^\"]*)\" must be shown$", (String msg) -> {
-            assertThat(currentPage.getBody()).contains(msg);
-        });
-        And("^The user insert a valid username and a wrong password$", () -> {
-            loginPage.submitForm("admin", "no");
-        });
-        And("^Presses Log in$", () -> {
-            pressLogin();
-        });
-        Given("^The user logged in as an admin$", () -> {
-            gotoLoginPage();
-            validLogin();
-            pressLogin();
-            loggedIn = true;
+        super();
+        Then("^There isn't a button \"Logout\"$", () -> {
+            assertThat(!(currentPage.getBody()).contains("Logout"));
         });
         Then("^The correct username is displayed$", () -> {
             assertThat(currentPage.getBody()).contains("admin");
@@ -90,78 +32,34 @@ public class LoginWebSteps implements En {
             this.currentPage = redirectedPage;
             loggedIn = false;
         });
-        Given("^The user isn't logged in$", () -> {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (!(authentication == null)) {
-                fail("User isn't logged out");
-            }
-        });
-        Then("^There isn't a button \"([^\"]*)\"$", (String name) -> {
-            assertThat(!(currentPage.getBody()).contains(name));
-        });
         Then("^Presses a link \"Login\"$", () -> {
             redirectedPage = ((HomePage) currentPage).pressLogin(LoginPage.class);
             assertThat(redirectedPage).isInstanceOf(LoginPage.class);
             this.currentPage = redirectedPage;
         });
-        And("^Presses link \"Back to Home Page\"$", () -> {
-            redirectedPage = ((LoginPage) currentPage).pressBack(HomePage.class);
-            assertThat(redirectedPage).isInstanceOf(HomePage.class);
-            this.currentPage = redirectedPage;
+        And("^Presses Log in$", () -> {
+            pressLogin();
         });
-        When("^The user navigates on \"new\" page$", () -> {
-            newPage = NewPage.to(webDriver);
-            this.currentPage = newPage;
+        And("^The user insert a valid admin username and password$", () -> {
+            validLogin();
+            loggedIn = true;
         });
-
-
-    }
-
-    private void gotoLoginPage() {
-        loginPage = LoginPage.to(webDriver);
-        this.currentPage = loginPage;
-    }
-
-    private void pressLogin() {
-        redirectedPage = loginPage.pressLogin(HomePage.class);
-        this.currentPage = redirectedPage;
-
-    }
-
-    private void validLogin() {
-        loginPage.submitForm("admin", "password");
-    }
-
-    @After
-    public void tearDown() {
-        if (loggedIn == true) {
-            adminHomePage = AdminHomePage.to(webDriver);
-            this.currentPage = adminHomePage;
-            adminHomePage.pressLogout(AdminHomePage.class);
-            loggedIn = false;
-        }
+        And("^The user insert a non present username and a password$", () -> {
+            loginPage.submitForm("no", "no");
+        });
+        And("^The user insert a valid username and a wrong password$", () -> {
+            loginPage.submitForm("admin", "no");
+        });
     }
 
     @Before
     public void setup() {
-        AbstractPage.port = port;
-        String ADMIN = "admin";
-        User user = new User();
-        user.setId(ADMIN);
-        user.setUsername(ADMIN);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode("password"));
-        user.addRole(ADMIN);
-        mongoTemplate.dropCollection(User.class);
-        mongoTemplate.createCollection(User.class);
-        mongoTemplate.insert(user);
+        setPort();
+        setUserDb();
     }
 
-    @TestConfiguration
-    public static class WebDriverConfiguration {
-        @Bean
-        public WebDriver getWebDriver() {
-            return new HtmlUnitDriver();
-        }
+    @After
+    public void tearDown() {
+        logout();
     }
 }
