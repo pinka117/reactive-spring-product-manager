@@ -40,6 +40,10 @@
             **/model/**,
             **/config/**,
         </sonar.coverage.exclusions>
+        <sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e11.ruleKey>squid:S2589</sonar.issue.ignore.multicriteria.e11.ruleKey>
+        <sonar.issue.ignore.multicriteria.e11.resourceKey>**/ItemService.java
+        </sonar.issue.ignore.multicriteria.e11.resourceKey>
     </properties>
 
     <dependencies>

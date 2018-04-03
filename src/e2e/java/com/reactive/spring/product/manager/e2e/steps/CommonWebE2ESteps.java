@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-public class CommonWebE2ESteps implements En {
+public abstract class CommonWebE2ESteps implements En {
     protected static int port =
             Integer.parseInt(System.getProperty("server.port", "8080"));
     protected static String url = "http://localhost:" + port;
