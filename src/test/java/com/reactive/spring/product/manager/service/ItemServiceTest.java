@@ -34,12 +34,14 @@ public class ItemServiceTest {
     private Item item;
     private Mono<Item> empty;
     private Item emptyId;
+    private Mono<Item> mono;
 
     @Before
     public void setUp() {
         item = new Item("id1", "name1", "location1");
         LinkedList<Item> li = new LinkedList<>();
         li.add(item);
+        this.mono = Mono.just(item);
         this.fi = Flux.fromIterable(li);
         this.empty = Mono.empty();
         this.emptyId = new Item();
@@ -91,6 +93,30 @@ public class ItemServiceTest {
         itemService.add(emptyId);
         verify(itemRepository).save(emptyId);
     }
+
+    @Test
+    public void SearchOkTest() {
+        addToSteam();
+        given(itemRepository.findById("id1")).
+                willReturn(mono);
+        Item r = itemService.search("id1");
+        assertEquals("id1", r.getId());
+        assertEquals("name1", r.getName());
+        assertEquals("location1", r.getLocation());
+
+    }
+
+    @Test
+    public void SearchNotFoundTest() {
+        addToSteam();
+        given(itemRepository.findById("id1")).
+                willReturn(null);
+        Item r = itemService.search("id1");
+        assertNull(r);
+
+
+    }
+
 
 
     public void addToSteam() {

@@ -72,6 +72,7 @@ public abstract class CommonWebSteps implements En {
             newPage = NewPage.to(webDriver);
             this.currentPage = newPage;
         });
+
     }
 
     protected void gotoLoginPage() {

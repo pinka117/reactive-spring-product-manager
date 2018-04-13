@@ -53,10 +53,14 @@
             <td th:text="${item.location}"
             </td>
             <td>
-                <button type="button" class="glyphicon glyphicon-pencil" id="Modify"></button>
+                <form th:action="@{/new}" action="#" method="get">
+                    <input type="hidden" name="id" th:value="${item.id}">
+                    <button type="submit" name="modify" th:id="modify+${item.id}" class="glyphicon glyphicon-pencil"
+                            th:value="modify+${item.id}"></button>
+                </form>
             </td>
             <td>
-                <button type="button" class="glyphicon glyphicon-trash" id="Remove"></button>
+                <button type="button" name="remove" class="glyphicon glyphicon-trash" id="Remove"></button>
             </td>
         </tr>
         </tbody>
