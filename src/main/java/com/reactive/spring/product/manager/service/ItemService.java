@@ -39,4 +39,10 @@ public class ItemService {
         return itemRepository.findById(Integer.toString(num)).block();
 
     }
+
+    public Item search(String id) {
+        Mono<Item> it = itemRepository.findById(id);
+        if (it == null) return null;
+        return itemRepository.findById(id).block();
+    }
 }

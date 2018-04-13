@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import reactor.core.publisher.Flux;
@@ -56,12 +57,20 @@ public class ItemWebController {
     }
 
     @GetMapping("/new")
-    public String newEmployee(Model model) {
-        Item item = new Item();
-        model.addAttribute("item", item);
+    public String newEmployee(@ModelAttribute("id") String id, Model model) {
+        if (id.equals("")) {
+            Item item = new Item();
+            model.addAttribute("item", item);
+
+        } else {
+            Item s = itemService.search(id);
+            model.addAttribute("item", s);
+        }
+
         model.addAttribute(MESSAGE, "");
         return ADMIN_EDIT;
     }
+
 
     @PostMapping("/save")
     public String saveItem(Item item, Model model) {
