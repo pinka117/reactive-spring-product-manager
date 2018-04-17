@@ -62,7 +62,7 @@
             <td>
                 <form th:action="@{/delete}" action="#" method="get">
                     <input type="hidden" name="id" th:value="${item.id}">
-                    <button type="submit" name="remove" th:id="delete+${item.id}" class="glyphicon glyphicon-thrash"
+                    <button type="submit" name="remove" th:id="delete+${item.id}" class="glyphicon glyphicon-trash"
                             th:value="delete+${item.id}"></button>
                 </form>
             </td>

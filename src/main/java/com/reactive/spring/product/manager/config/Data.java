@@ -27,11 +27,6 @@ public class Data {
         mongoTemplate.insert(user);
         mongoTemplate.dropCollection(Item.class);
         mongoTemplate.createCollection(Item.class);
-        Item it = new Item("id1", "name1", "location1");
-        mongoTemplate.insert(it);
-        it = new Item("id2", "name2", "location2");
-        mongoTemplate.insert(it);
-
 
 
     }

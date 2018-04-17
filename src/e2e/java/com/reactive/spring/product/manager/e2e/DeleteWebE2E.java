@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/bdd/resources/modify.feature", glue = "com.reactive.spring.product.manager.e2e.steps.modify")
-public class ModifyWebE2E {
+@CucumberOptions(features = "src/bdd/resources/delete.feature", glue = "com.reactive.spring.product.manager.e2e.steps.delete")
+public class DeleteWebE2E {
     @BeforeClass
     public static void setupClass() {
         ChromeDriverManager.getInstance()
