@@ -11,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,19 +31,6 @@ public class ModifyWebSteps extends CommonWebSteps {
         And("^Presses \"Ok\"$", () -> {
             redirectedPage = ((NewPage) currentPage).pressAdd(HomePage.class);
             currentPage = redirectedPage;
-        });
-        And("^There isn't an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
-            homePage = HomePage.to(webDriver);
-            boolean idexp = homePage.getBody().contains(id);
-            boolean nameexp = homePage.getBody().contains(name);
-            boolean locationexp = homePage.getBody().contains(location);
-            assertFalse(idexp && nameexp && locationexp);
-        });
-        And("^There is an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
-            homePage = HomePage.to(webDriver);
-            assertTrue(homePage.getBody().contains(id));
-            assertTrue(homePage.getBody().contains(name));
-            assertTrue(homePage.getBody().contains(location));
         });
         When("^Enters location \"([^\"]*)\"$", (String location) -> {
             ((NewPage) currentPage).submitFormLocation(location);

@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public abstract class CommonWebSteps implements En {
     @Autowired
@@ -71,6 +73,19 @@ public abstract class CommonWebSteps implements En {
         When("^The user navigates on \"new\" page$", () -> {
             newPage = NewPage.to(webDriver);
             this.currentPage = newPage;
+        });
+        And("^There isn't an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
+            homePage = HomePage.to(webDriver);
+            boolean idexp = homePage.getBody().contains(id);
+            boolean nameexp = homePage.getBody().contains(name);
+            boolean locationexp = homePage.getBody().contains(location);
+            assertFalse(idexp && nameexp && locationexp);
+        });
+        And("^There is an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
+            homePage = HomePage.to(webDriver);
+            assertTrue(homePage.getBody().contains(id));
+            assertTrue(homePage.getBody().contains(name));
+            assertTrue(homePage.getBody().contains(location));
         });
 
     }
