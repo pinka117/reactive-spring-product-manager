@@ -20,8 +20,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable();
+
+        http
                 .authorizeRequests()
-                .antMatchers("**/css/**", "user/**").permitAll()
+                .antMatchers("**/css/**", "user/**", "/api/items/**", "/api/item/**").permitAll()
                 .antMatchers("/admin/**", "edit*", "/new").hasRole("ADMIN")
                 .and()
                 .formLogin()

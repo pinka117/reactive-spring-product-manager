@@ -1,16 +1,26 @@
 package com.reactive.spring.product.manager.e2e.steps;
 
 import com.reactive.spring.product.manager.controller.webdriver.pages.*;
+import com.reactive.spring.product.manager.model.Item;
 import cucumber.api.java8.En;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public abstract class CommonWebE2ESteps implements En {
+    private static final String API = "/api";
     protected static int port =
             Integer.parseInt(System.getProperty("server.port", "8080"));
     protected static String url = "http://localhost:" + port;
@@ -21,6 +31,10 @@ public abstract class CommonWebE2ESteps implements En {
     protected AbstractPage redirectedPage;
     protected AbstractPage currentPage;
     protected AdminHomePage adminHomePage;
+    private static final String GETALL_ENDPOINT = url + API + "/items";
+    private static final String SAVE_ENDPOINT = url + API + "/items/new";
+    private static final String DELETE_ENDPOINT = url + API + "/item/delete";
+    protected RestTemplate restTemplate;
 
     public CommonWebE2ESteps() {
         Given("^The user is on Home Page$", () -> {
@@ -49,6 +63,19 @@ public abstract class CommonWebE2ESteps implements En {
             newPage = NewPage.to(webDriver);
             this.currentPage = newPage;
         });
+        And("^There is an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
+            homePage = HomePage.to(webDriver);
+            assertTrue(homePage.getBody().contains(id));
+            assertTrue(homePage.getBody().contains(name));
+            assertTrue(homePage.getBody().contains(location));
+        });
+        And("^There isn't an item with id \"([^\"]*)\" and name \"([^\"]*)\" and location \"([^\"]*)\"$", (String id, String name, String location) -> {
+            homePage = HomePage.to(webDriver);
+            boolean idexp = homePage.getBody().contains(id);
+            boolean nameexp = homePage.getBody().contains(name);
+            boolean locationexp = homePage.getBody().contains(location);
+            assertFalse(idexp && nameexp && locationexp);
+        });
     }
 
     protected void gotoLoginPage() {
@@ -62,6 +89,18 @@ public abstract class CommonWebE2ESteps implements En {
 
     protected void validLogin() {
         loginPage.submitForm("admin", "admin");
+    }
+
+    protected void post(String id, String name, String location) throws JSONException {
+        JSONObject request = new JSONObject();
+        request.put("id", id);
+        request.put("name", name);
+        request.put("location", location);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
+        restTemplate.postForObject(SAVE_ENDPOINT, entity, Item.class);
+
     }
 
     protected void setPort() {
