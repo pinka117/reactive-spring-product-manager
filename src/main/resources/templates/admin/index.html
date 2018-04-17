@@ -60,7 +60,11 @@
                 </form>
             </td>
             <td>
-                <button type="button" name="remove" class="glyphicon glyphicon-trash" id="Remove"></button>
+                <form th:action="@{/delete}" action="#" method="get">
+                    <input type="hidden" name="id" th:value="${item.id}">
+                    <button type="submit" name="remove" th:id="delete+${item.id}" class="glyphicon glyphicon-thrash"
+                            th:value="delete+${item.id}"></button>
+                </form>
             </td>
         </tr>
         </tbody>

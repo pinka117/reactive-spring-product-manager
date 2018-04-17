@@ -45,4 +45,12 @@ public class ItemService {
         if (it == null) return null;
         return itemRepository.findById(id).block();
     }
+
+    public boolean delete(String id) {
+        Mono<Item> it = itemRepository.findById(id);
+        if (it == null) return false;
+        Mono<Void> res = itemRepository.deleteById(id);
+        res.subscribe();
+        return true;
+    }
 }

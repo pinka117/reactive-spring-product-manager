@@ -47,4 +47,9 @@ public class HomePage extends AbstractPage {
         mod.click();
         return PageFactory.initElements(driver, resultPage);
     }
+
+    public void clickDelete(String id) {
+        WebElement del = driver.findElement(By.id("delete" + id));
+        del.click();
+    }
 }

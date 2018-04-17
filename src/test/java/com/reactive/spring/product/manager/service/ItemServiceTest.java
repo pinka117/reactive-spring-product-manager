@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 
@@ -35,6 +36,7 @@ public class ItemServiceTest {
     private Mono<Item> empty;
     private Item emptyId;
     private Mono<Item> mono;
+    private Mono<Void> monoVoid;
 
     @Before
     public void setUp() {
@@ -47,6 +49,8 @@ public class ItemServiceTest {
         this.emptyId = new Item();
         this.emptyId.setName("pippo");
         this.emptyId.setLocation("pluto");
+        this.monoVoid = Mono.create(s -> {
+        });
     }
 
     @Test
@@ -95,7 +99,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    public void SearchOkTest() {
+    public void searchOkTest() {
         addToSteam();
         given(itemRepository.findById("id1")).
                 willReturn(mono);
@@ -107,7 +111,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    public void SearchNotFoundTest() {
+    public void searchNotFoundTest() {
         addToSteam();
         given(itemRepository.findById("id1")).
                 willReturn(null);
@@ -115,6 +119,30 @@ public class ItemServiceTest {
         assertNull(r);
 
 
+    }
+
+    @Test
+    public void deleteOkTest() {
+        addToSteam();
+        given(itemRepository.findById("id1")).
+                willReturn(mono);
+        given(itemRepository.deleteById("id1")).
+                willReturn(monoVoid);
+        boolean res = itemService.delete("id1");
+        verify(itemRepository).findById("id1");
+        verify(itemRepository).deleteById("id1");
+        assertTrue(res);
+    }
+
+    @Test
+    public void deleteNotFoundTest() {
+        addToSteam();
+        given(itemRepository.findById("id1")).
+                willReturn(null);
+        boolean res = itemService.delete("id1");
+        verify(itemRepository).findById("id1");
+        verify(itemRepository, never()).deleteById("id1");
+        assertFalse(res);
     }
 
 

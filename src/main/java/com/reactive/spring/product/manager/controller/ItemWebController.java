@@ -89,5 +89,10 @@ public class ItemWebController {
         return "redirect:/";
     }
 
+    @GetMapping("/delete")
+    public String deleteItem(@ModelAttribute("id") String id, Model model) {
+        itemService.delete(id);
+        return "redirect:/";
+    }
 
 }
