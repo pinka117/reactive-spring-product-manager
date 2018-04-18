@@ -4,10 +4,12 @@
     <meta charset="UTF-8"/>
     <title>Items</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/edit.css" th:href="@{/css/edit.css}"/>
 </head>
 <body>
-
+<div class="container">
 <h1>Edit Item</h1>
 <div class="message" th:unless="${message.empty}">
     <span th:text="${message}"></span>
@@ -17,13 +19,20 @@
       th:object="${item}" method="post">
     <input type="hidden" id="id" th:field="*{id}"/>
     <p>
-        Name: <input type="text" id="name" th:field="*{name}"/>
+        <label for="name">Name:</label><br>
+
+        <input class="input-lg" type="text" id="name" th:field="*{name}"/>
+
     </p>
     <p>
-        Location: <input type="text" id="location" th:field="*{location}"/>
-    </p>
-    <button type="submit" id="Add" name="btn_submit">Save</button>
-</form>
+        <label for="location">Location:</label><br>
 
+        <input class="input-lg" type="text" id="location" th:field="*{location}"/>
+
+    </p>
+    <button type="submit" class="btn btn-lg btn-primary btn-block" id="Add" name="btn_submit">Save</button>
+    <p><a href="/index" id="home page" th:href="@{/}">Back to home page</a></p>
+</form>
+</div>
 </body>
 </html>
