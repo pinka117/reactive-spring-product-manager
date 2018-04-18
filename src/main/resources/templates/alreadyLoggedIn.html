@@ -3,10 +3,14 @@
 <head>
     <title>Login page</title>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/error.css" th:href="@{/css/error.css}"/>
     <link rel="shortcut icon" href="/favicon.ico"/>
 </head>
 <body>
-You're already logged in
+<h1>You're already logged in</h1><br>
+<br>
+<a href="/index" id="home page" th:href="@{/}">Back to home page</a>
 </body>
 </html>

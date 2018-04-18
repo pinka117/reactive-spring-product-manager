@@ -3,14 +3,6 @@ body {
     padding-bottom: 40px;
     background-color: #eee;
     text-align: center;
-}
-div.message {
     font-weight: bold;
     color: red;
-}
-
-div.container {
-    max-width: 350px;
-    padding: 15px;
-    margin: 0 auto;
 }
