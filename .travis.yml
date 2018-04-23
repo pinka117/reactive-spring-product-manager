@@ -5,6 +5,7 @@ addons:
    apt:
      packages:
        - google-chrome-stable
+addons:
  sonarcloud:
      organization: "pinka117-github"
      token:
