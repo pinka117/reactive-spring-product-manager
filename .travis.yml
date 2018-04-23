@@ -2,6 +2,9 @@ sudo: false
 language: java
 jdk: oraclejdk8
 addons:
+   apt:
+     packages:
+       - google-chrome-stable
  sonarcloud:
      organization: "pinka117-github"
      token:
@@ -17,3 +20,4 @@ before_script:
 script:
 - export
 - ./mvnw clean verify -Pjacoco coveralls:report sonar:sonar
+- ./mvnw verify -Pe2e-tests
