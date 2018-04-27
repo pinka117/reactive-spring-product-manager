@@ -5,7 +5,6 @@ import com.reactive.spring.product.manager.service.ItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import reactor.core.publisher.Flux;
 
 import java.util.LinkedList;
@@ -16,7 +15,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.mockito.Mockito.*;
 
-@WithMockUser(username = "admin", roles = {"ADMIN"})
 public class ItemRestControllerTest {
 
     private ItemService itemService;
@@ -38,7 +36,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void findAllTest() throws Exception {
+    public void findAllTest() {
         when(itemService.findAll()).
                 thenReturn(fi);
         given().
@@ -59,7 +57,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void testFindByIdOk() throws Exception {
+    public void testFindByIdOk() {
         when(itemService.search("id1")).
                 thenReturn(item);
         given().
@@ -77,7 +75,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void testFindByIdNotFound() throws Exception {
+    public void testFindByIdNotFound() {
         given().
                 when().
                 get("/api/item/id2").
@@ -88,7 +86,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void testAdd() throws Exception {
+    public void testAdd() {
         given().
                 contentType(MediaType.APPLICATION_JSON_VALUE).
                 body(item).
@@ -100,7 +98,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void testModifyOk() throws Exception {
+    public void testModifyOk() {
         when(itemService.search("id1")).
                 thenReturn(item);
         Item mod = new Item("id1", "new name", "new location");
@@ -117,7 +115,7 @@ public class ItemRestControllerTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() {
         given().
                 when().
                 delete("/api/items/delete/id1").

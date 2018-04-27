@@ -24,12 +24,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("**/css/**", "user/**", "/api/items/**", "/api/item/**").permitAll()
-                .antMatchers("/admin/**", "edit*", "/new").hasRole("ADMIN")
+                .antMatchers("**/css/**", "user/**", "/api/items", "/api/item/*").permitAll()
+                .antMatchers("/admin/**", "edit*", "/api/items/new", "/new", "/api/item/modify/*", "/api/items/delete/*").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login-error");
-
     }
 
 
@@ -38,5 +37,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetailsService userDetailsService = mongoUserDetails();
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
 }
