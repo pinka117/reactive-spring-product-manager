@@ -3,6 +3,7 @@ package com.reactive.spring.product.manager.e2e.steps;
 import com.reactive.spring.product.manager.controller.webdriver.pages.*;
 import com.reactive.spring.product.manager.model.Item;
 import cucumber.api.java8.En;
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
@@ -92,15 +93,19 @@ public abstract class CommonWebE2ESteps implements En {
     }
 
     protected void post(String id, String name, String location) throws JSONException {
+        String plainCreds = "admin:admin";
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Creds);
         JSONObject request = new JSONObject();
         request.put("id", id);
         request.put("name", name);
         request.put("location", location);
-        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
         restTemplate.postForObject(SAVE_ENDPOINT, entity, Item.class);
-
     }
 
     protected void setPort() {

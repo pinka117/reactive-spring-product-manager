@@ -21,22 +21,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable();
-
         http
                 .authorizeRequests()
-                .antMatchers("**/css/**", "user/**", "/api/items/**", "/api/item/**").permitAll()
-                .antMatchers("/admin/**", "edit*", "/new").hasRole("ADMIN")
+                .antMatchers("**/css/**", "user/**", "/api/items", "/api/item/*").permitAll()
+                .antMatchers("/admin/**", "edit*", "/api/items/new", "/new", "/api/item/modify/*", "/api/items/delete/*").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login").failureUrl("/login-error");
-
+                .loginPage("/login").failureUrl("/login-error")
+                .and()
+                .httpBasic();
     }
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         UserDetailsService userDetailsService = mongoUserDetails();
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
 }
