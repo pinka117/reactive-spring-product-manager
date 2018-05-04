@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @SpringBootApplication
 public class ProductManagerApplication {
 
-
-    //Delete db and add some default elements
      @Bean
      public ApplicationRunner initialize(final MongoTemplate mongoTemplate) {
          return args ->
