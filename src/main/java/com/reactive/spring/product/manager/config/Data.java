@@ -16,18 +16,20 @@ public class Data {
 
     public static void initializeAllData(MongoTemplate mongoTemplate) {
 
-        User user = new User();
-        user.setId(ADMIN);
-        user.setUsername(ADMIN);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode(ADMIN));
-        user.addRole("ROLE_ADMIN");
-        mongoTemplate.dropCollection(User.class);
-        mongoTemplate.createCollection(User.class);
-        mongoTemplate.insert(user);
-        mongoTemplate.dropCollection(Item.class);
-        mongoTemplate.createCollection(Item.class);
-
-
+        if (!mongoTemplate.collectionExists(User.class)) {
+            mongoTemplate.createCollection(User.class);
+        }
+        if (!mongoTemplate.collectionExists(Item.class)) {
+            mongoTemplate.createCollection(Item.class);
+        }
+        if (mongoTemplate.findById(ADMIN, User.class) == null) {
+            User user = new User();
+            user.setId(ADMIN);
+            user.setUsername(ADMIN);
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(ADMIN));
+            user.addRole("ROLE_ADMIN");
+            mongoTemplate.insert(user);
+        }
     }
 }
