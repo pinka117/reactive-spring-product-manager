@@ -18,13 +18,9 @@ Execute from the project's folder:
 ```
 
 ## Run application
-Make sure mongodb (3.4+) is running
+Make sure mongodb is running
 ```
-mongod
-```
-To run mongodb execute
-```
-sudo service mongod start
+docker run --name database -d -p 27017:27017 mongo:3.4 --noauth --bind_ip=0.0.0.0
 ```
 Execute from the project's folder to run application:
 ```
