@@ -14,13 +14,13 @@ public class LoginWebE2ESteps extends CommonWebE2ESteps {
         When("^The user navigates to \"login\" page$", () -> {
             gotoLoginPage();
         });
-        And("^The user insert a valid admin username and password$", () -> {
+        And("^The user inserts a valid admin username and password$", () -> {
             validLogin();
         });
-        And("^The user insert a non present username and a password$", () -> {
+        And("^The user inserts a non present username and a password$", () -> {
             loginPage.submitForm("no", "no");
         });
-        And("^The user insert a valid username and a wrong password$", () -> {
+        And("^The user inserts a valid username and a wrong password$", () -> {
             loginPage.submitForm("admin", "no");
         });
         And("^Presses Log in$", () -> {

@@ -32,9 +32,7 @@ public abstract class CommonWebE2ESteps implements En {
     protected AbstractPage redirectedPage;
     protected AbstractPage currentPage;
     protected AdminHomePage adminHomePage;
-    private static final String GETALL_ENDPOINT = url + API + "/items";
     private static final String SAVE_ENDPOINT = url + API + "/items/new";
-    private static final String DELETE_ENDPOINT = url + API + "/item/delete";
     protected RestTemplate restTemplate;
 
     public CommonWebE2ESteps() {

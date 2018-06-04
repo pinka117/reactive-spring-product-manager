@@ -14,7 +14,7 @@ public class ModifyWebE2ESteps extends CommonWebE2ESteps {
     public ModifyWebE2ESteps() {
         super();
 
-        And("^The user click \"Modify\" on id \"([^\"]*)\"$", (String id) -> {
+        And("^The user clicks \"Modify\" on id \"([^\"]*)\"$", (String id) -> {
             homePage = HomePage.to(webDriver);
             redirectedPage = homePage.clickModify(id, NewPage.class);
             currentPage = redirectedPage;

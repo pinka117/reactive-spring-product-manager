@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 public class DeleteWebE2ESteps extends CommonWebE2ESteps {
     public DeleteWebE2ESteps() {
         super();
-        When("^The user click \"Delete\" on id \"([^\"]*)\"$", (String id) -> {
+        When("^The user clicks \"Delete\" on id \"([^\"]*)\"$", (String id) -> {
             homePage = HomePage.to(webDriver);
             homePage.clickDelete(id);
         });

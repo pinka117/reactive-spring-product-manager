@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ModifyWebSteps extends CommonWebSteps {
     public ModifyWebSteps() {
         super();
-        And("^The user click \"Modify\" on id \"([^\"]*)\"$", (String id) -> {
+        And("^The user clicks \"Modify\" on id \"([^\"]*)\"$", (String id) -> {
             homePage = HomePage.to(webDriver);
             redirectedPage = homePage.clickModify(id, NewPage.class);
             currentPage = redirectedPage;

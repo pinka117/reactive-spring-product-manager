@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class DeleteWebSteps extends CommonWebSteps {
     public DeleteWebSteps() {
         super();
-        When("^The user click \"Delete\" on id \"([^\"]*)\"$", (String id) -> {
+        When("^The user clicks \"Delete\" on id \"([^\"]*)\"$", (String id) -> {
             homePage = HomePage.to(webDriver);
             homePage.clickDelete(id);
         });

@@ -40,14 +40,14 @@ public class LoginWebSteps extends CommonWebSteps {
         And("^Presses Log in$", () -> {
             pressLogin();
         });
-        And("^The user insert a valid admin username and password$", () -> {
+        And("^The user inserts a valid admin username and password$", () -> {
             validLogin();
             loggedIn = true;
         });
-        And("^The user insert a non present username and a password$", () -> {
+        And("^The user inserts a non present username and a password$", () -> {
             loginPage.submitForm("no", "no");
         });
-        And("^The user insert a valid username and a wrong password$", () -> {
+        And("^The user inserts a valid username and a wrong password$", () -> {
             loginPage.submitForm("admin", "no");
         });
     }

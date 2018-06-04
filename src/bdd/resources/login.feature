@@ -3,21 +3,21 @@ Feature: Login
   Scenario: Login ok
     Given The user is on Home Page
     When The user navigates to "login" page
-    And The user insert a valid admin username and password
+    And The user inserts a valid admin username and password
     And Presses Log in
     Then The user is redirected to Home Page
 
   Scenario: Login non present username
     Given The user is on Home Page
     When The user navigates to "login" page
-    And The user insert a non present username and a password
+    And The user inserts a non present username and a password
     And Presses Log in
     Then A message "Non valid username or password" must be shown
 
   Scenario: Login wrong password
     Given The user is on Home Page
     When The user navigates to "login" page
-    And The user insert a valid username and a wrong password
+    And The user inserts a valid username and a wrong password
     And Presses Log in
     Then A message "Non valid username or password" must be shown
 
