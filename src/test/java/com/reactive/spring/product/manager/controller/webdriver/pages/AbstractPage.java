@@ -7,11 +7,11 @@ import org.openqa.selenium.support.FindBy;
 public class AbstractPage {
 
     public static int port = 0;
-    private WebDriver driver;
+    public WebDriver driver;
     @FindBy(tagName = "body")
     private WebElement body;
 
-    private AbstractPage(WebDriver driver) {
+    public AbstractPage(WebDriver driver) {
         setDriver(driver);
     }
 
