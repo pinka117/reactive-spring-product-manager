@@ -12,19 +12,19 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @ContextConfiguration(loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginWebSteps extends CommonWebSteps {
-
-
     public LoginWebSteps() {
         super();
         Then("^There isn't a button \"Logout\"$", () -> {
-            assertThat(!(currentPage.getBody()).contains("Logout"));
+            assertFalse((currentPage.getBody()).contains("Logout"));
         });
         Then("^The correct username is displayed$", () -> {
-            assertThat(currentPage.getBody()).contains("admin");
+            assertTrue((currentPage.getBody()).contains("admin"));
         });
         When("^Presses \"Logout\"$", () -> {
             adminHomePage = AdminHomePage.to(webDriver);

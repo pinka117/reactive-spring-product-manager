@@ -18,22 +18,18 @@ import reactor.core.publisher.Mono;
 
 @Controller
 public class ItemWebController {
-    public static final String MESSAGE = "message";
-    public static final String ADMIN_EDIT = "/admin/edit";
+    private static final String MESSAGE = "message";
+    private static final String ADMIN_EDIT = "/admin/edit";
     @Autowired
     private ItemService itemService;
 
     @RequestMapping("/")
     public String index(Model model) {
         Flux<Item> items = itemService.findAll();
-
-
         model.addAttribute("items", items.toIterable());
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return "/admin/index";
-
         }
         return "/user/index";
     }
@@ -45,13 +41,11 @@ public class ItemWebController {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return "alreadyLoggedIn";
         }
-
         return "login";
     }
 
     @RequestMapping("/login-error")
     public String loginError(Model model) {
-
         model.addAttribute("loginError", true);
         return "login";
     }
@@ -61,12 +55,10 @@ public class ItemWebController {
         if (id.equals("")) {
             Item item = new Item();
             model.addAttribute("item", item);
-
         } else {
             Item s = itemService.search(id);
             model.addAttribute("item", s);
         }
-
         model.addAttribute(MESSAGE, "");
         return ADMIN_EDIT;
     }
@@ -94,5 +86,4 @@ public class ItemWebController {
         itemService.delete(id);
         return "redirect:/";
     }
-
 }

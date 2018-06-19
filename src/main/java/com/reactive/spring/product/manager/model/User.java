@@ -8,14 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.LinkedList;
 
-
 @Data
 @Document
 public class User {
-
     @Id
     private String id;
-
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
     private String password;

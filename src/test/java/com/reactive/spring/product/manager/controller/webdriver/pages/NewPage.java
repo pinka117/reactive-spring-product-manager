@@ -11,10 +11,8 @@ public class NewPage extends AbstractPage {
     private WebElement name;
     @FindBy(id = "location")
     private WebElement location;
-
     @FindBy(id = "Add")
     private WebElement submit;
-
 
     public NewPage(WebDriver driver) {
         super(driver);

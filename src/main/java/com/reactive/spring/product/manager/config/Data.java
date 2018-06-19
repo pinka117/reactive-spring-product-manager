@@ -8,14 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class Data {
 
-    public static final String ADMIN = "admin";
+    private static final String ADMIN = "admin";
 
     private Data() {
-
     }
 
     public static void initializeAllData(MongoTemplate mongoTemplate) {
-
         if (!mongoTemplate.collectionExists(User.class)) {
             mongoTemplate.createCollection(User.class);
         }

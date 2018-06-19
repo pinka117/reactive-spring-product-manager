@@ -87,10 +87,9 @@ public abstract class CommonWebSteps implements En {
             assertTrue(homePage.getBody().contains(name));
             assertTrue(homePage.getBody().contains(location));
         });
-
     }
 
-    protected void gotoLoginPage() {
+    private void gotoLoginPage() {
         loginPage = LoginPage.to(webDriver);
         this.currentPage = loginPage;
     }
@@ -127,7 +126,7 @@ public abstract class CommonWebSteps implements En {
     }
 
     protected void logout() {
-        if (loggedIn == true) {
+        if (loggedIn) {
             adminHomePage = AdminHomePage.to(webDriver);
             this.currentPage = adminHomePage;
             adminHomePage.pressLogout(AdminHomePage.class);

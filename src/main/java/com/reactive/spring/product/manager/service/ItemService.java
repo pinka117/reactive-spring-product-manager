@@ -37,7 +37,6 @@ public class ItemService {
 
     private Item getElement() {
         return itemRepository.findById(Integer.toString(num)).block();
-
     }
 
     public Item search(String id) {

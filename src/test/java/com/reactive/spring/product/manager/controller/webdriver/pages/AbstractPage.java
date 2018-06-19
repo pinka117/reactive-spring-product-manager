@@ -7,11 +7,11 @@ import org.openqa.selenium.support.FindBy;
 public class AbstractPage {
 
     public static int port = 0;
-    protected WebDriver driver;
+    private WebDriver driver;
     @FindBy(tagName = "body")
     private WebElement body;
 
-    public AbstractPage(WebDriver driver) {
+    private AbstractPage(WebDriver driver) {
         setDriver(driver);
     }
 
@@ -21,13 +21,11 @@ public class AbstractPage {
                 + "/" + relativeUrl);
     }
 
-    public void setDriver(WebDriver driver) {
+    private void setDriver(WebDriver driver) {
         this.driver = driver;
     }
 
     public String getBody() {
         return body.getText();
     }
-
-
 }

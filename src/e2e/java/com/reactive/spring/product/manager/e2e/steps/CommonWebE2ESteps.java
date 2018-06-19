@@ -22,9 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class CommonWebE2ESteps implements En {
     private static final String API = "/api";
-    protected static int port =
+    private static int port =
             Integer.parseInt(System.getProperty("server.port", "8080"));
-    protected static String url = "http://localhost:" + port;
+    private static String url = "http://localhost:" + port;
     protected WebDriver webDriver;
     protected HomePage homePage;
     protected LoginPage loginPage;
@@ -46,7 +46,6 @@ public abstract class CommonWebE2ESteps implements En {
             pressLogin();
         });
         Then("^The user is redirected to Home Page$", () -> {
-
             assertThat(redirectedPage).isInstanceOf(HomePage.class);
         });
         Then("^A message \"([^\"]*)\" must be shown$", (String msg) -> {
@@ -102,7 +101,7 @@ public abstract class CommonWebE2ESteps implements En {
         request.put("name", name);
         request.put("location", location);
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
+        HttpEntity<String> entity = new HttpEntity<>(request.toString(), headers);
         restTemplate.postForObject(SAVE_ENDPOINT, entity, Item.class);
     }
 

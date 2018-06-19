@@ -32,7 +32,6 @@ public class ModifyWebE2ESteps extends CommonWebE2ESteps {
         When("^Enters location \"([^\"]*)\"$", (String location) -> {
             ((NewPage) currentPage).submitFormLocation(location);
         });
-
     }
 
     @Before

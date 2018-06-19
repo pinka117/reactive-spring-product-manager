@@ -44,13 +44,10 @@ public class ModifyWebSteps extends CommonWebSteps {
         setItemDb();
         Item item = new Item("1", "new name", "new location");
         mongoTemplate.insert(item);
-
     }
 
     @After
     public void tearDown() {
         logout();
     }
-
-
 }
