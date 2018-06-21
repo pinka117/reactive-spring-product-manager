@@ -27,9 +27,7 @@ public class ItemService {
 
     public Mono<Item> add(Item item) {
         if (item.getId().equals("")) {
-            while (getElement() != null) {
                 updateNum();
-            }
             item.setId(Integer.toString(num));
         }
         return itemRepository.save(item);
