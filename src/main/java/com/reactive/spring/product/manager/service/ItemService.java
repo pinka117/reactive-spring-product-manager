@@ -33,10 +33,6 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
-    private Item getElement() {
-        return itemRepository.findById(Integer.toString(num)).block();
-    }
-
     public Item search(String id) {
         Mono<Item> it = itemRepository.findById(id);
         if (it == null) return null;
