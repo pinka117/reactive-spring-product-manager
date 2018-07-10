@@ -47,7 +47,7 @@
         <sonar.issue.ignore.multicriteria.e12.ruleKey>squid:S2583</sonar.issue.ignore.multicriteria.e12.ruleKey>
         <sonar.issue.ignore.multicriteria.e12.resourceKey>**/Data.java
         </sonar.issue.ignore.multicriteria.e12.resourceKey>
-        <sonar.issue.ignore.multicriteria.e13.ruleKey>squid:S4502Spring</sonar.issue.ignore.multicriteria.e13.ruleKey>
+        <sonar.issue.ignore.multicriteria.e13.ruleKey>squid:S4502</sonar.issue.ignore.multicriteria.e13.ruleKey>
         <embedded.mongo.scope>test</embedded.mongo.scope>
     </properties>
 
