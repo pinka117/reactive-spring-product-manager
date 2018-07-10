@@ -22,6 +22,9 @@ Make sure mongodb is running
 ```
 docker run --name database -d -p 27017:27017 mongo:3.4 --noauth --bind_ip=0.0.0.0
 ```
+```
+docker container start  database
+```
 Execute from the project's folder to run application:
 ```
 ./mvnw spring-boot:run
