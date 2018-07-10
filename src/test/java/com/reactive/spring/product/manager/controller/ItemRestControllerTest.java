@@ -94,7 +94,7 @@ public class ItemRestControllerTest {
                 post("/api/items/new").
                 then().
                 statusCode(200);
-        verify(itemService, times(1)).add(item);
+        verify(itemService, times(1)).add(any());
     }
 
     @Test
@@ -102,7 +102,6 @@ public class ItemRestControllerTest {
         when(itemService.search("id1")).
                 thenReturn(item);
         Item mod = new Item("id1", "new name", "new location");
-
         given().
                 contentType(MediaType.APPLICATION_JSON_VALUE).
                 body(mod).
@@ -110,8 +109,7 @@ public class ItemRestControllerTest {
                 put("/api/item/modify/id1").
                 then().
                 statusCode(200);
-
-        verify(itemService, times(1)).add(mod);
+        verify(itemService, times(1)).add(any());
     }
 
     @Test
@@ -124,6 +122,3 @@ public class ItemRestControllerTest {
         verify(itemService, times(1)).delete("id1");
     }
 }
-
-
-
