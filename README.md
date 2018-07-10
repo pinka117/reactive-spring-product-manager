@@ -26,3 +26,6 @@ Execute from the project's folder to run application:
 ```
 ./mvnw spring-boot:run
 ```
+## Default user
+Username: admin
+Password: admin
