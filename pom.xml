@@ -48,6 +48,10 @@
         <sonar.issue.ignore.multicriteria.e12.ruleKey>squid:S2583</sonar.issue.ignore.multicriteria.e12.ruleKey>
         <sonar.issue.ignore.multicriteria.e12.resourceKey>**/Data.java
         </sonar.issue.ignore.multicriteria.e12.resourceKey>
+        <sonar.issue.ignore.multicriteria>e13</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e13.ruleKey>squid:S4502Spring</sonar.issue.ignore.multicriteria.e13.ruleKey>
+        <sonar.issue.ignore.multicriteria.e13.resourceKey>**/SpringSecurityConfig.java
+        </sonar.issue.ignore.multicriteria.e13.resourceKey>
         <embedded.mongo.scope>test</embedded.mongo.scope>
     </properties>
 
@@ -172,6 +176,11 @@
             <artifactId>spring-test</artifactId>
             <version>5.0.4.RELEASE</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

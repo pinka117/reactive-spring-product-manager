@@ -3,6 +3,7 @@ package com.reactive.spring.product.manager.controller;
 
 import com.reactive.spring.product.manager.model.Item;
 import com.reactive.spring.product.manager.service.ItemService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -65,7 +66,10 @@ public class ItemWebController {
 
 
     @PostMapping("/save")
-    public String saveItem(Item item, Model model) {
+    public String saveItem(Item itemDto, Model model) {
+        ModelMapper modelMapper = new ModelMapper();
+        Item item = modelMapper.map(itemDto, Item.class);
+
         if (item.getName().equals("")) {
             model.addAttribute("item", item);
             model.addAttribute(MESSAGE, "Empty name");
